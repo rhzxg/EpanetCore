@@ -1,10 +1,10 @@
-cmake_minimum_required (VERSION 2.8)
-SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
-SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+cmake_minimum_required(VERSION 3.14)
+SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
-project ("EPANET")
+project("EpanetCore")
 set_property( GLOBAL PROPERTY USE_FOLDERS ON)
-SET (CMAKE_C_FLAGS "-std=c99")
+SET(CMAKE_C_FLAGS "-std=c99")
 if(MSVC)
 	# /Wall generated MANY warnings.  Defaulting to level 4, excluding C4100 (unreferenced formal parameter)
 	# and C4571 (structured exceptions no longer caught)
@@ -16,7 +16,7 @@ else()
 	SET (CMAKE_CXX_FLAGS "-Wall -std=c++11")
 endif(MSVC)
 
-SET (epanet_lib_sources 
+SET(epanet_lib_sources 
 src/Core/datamanager.cpp
 src/Core/diagnostics.cpp
 src/Core/epanet3.cpp
@@ -76,7 +76,7 @@ src/Utilities/segpool.cpp
 src/Utilities/utilities.cpp
 )
 
-SET (epanet_lib_headers 
+SET(epanet_lib_headers 
 src/Core/constants.h
 src/Core/datamanager.h
 src/Core/diagnostics.h
@@ -146,7 +146,22 @@ source_group("Utilities" REGULAR_EXPRESSION "src/Utilities/.*")
 
 include_directories(src src/Core src/Elements src/Input src/Output src/Utilities src/Solvers)
 
-add_library(epanet3 SHARED ${epanet_lib_sources} ${epanet_lib_headers})
+add_library(${PROJECT_NAME} STATIC ${epanet_lib_sources} ${epanet_lib_headers})
 
-add_executable(run-epanet3 src/CLI/main.cpp)
-target_link_libraries(run-epanet3 LINK_PUBLIC epanet3)
+if(MSVC)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "$<1:${REVELATION_OUTPUT_DIR}/Debug/EpanetCore/${PROJECT_NAME}>"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "$<1:${REVELATION_OUTPUT_DIR}/Release/EpanetCore/${PROJECT_NAME}>"
+    RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "$<1:${REVELATION_OUTPUT_DIR}/RelWithDebInfo/EpanetCore/${PROJECT_NAME}>"
+    LIBRARY_OUTPUT_DIRECTORY_DEBUG "$<1:${REVELATION_OUTPUT_DIR}/Debug/EpanetCore/${PROJECT_NAME}>"
+    LIBRARY_OUTPUT_DIRECTORY_RELEASE "$<1:${REVELATION_OUTPUT_DIR}/Release/EpanetCore/${PROJECT_NAME}>"
+    LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO "$<1:${REVELATION_OUTPUT_DIR}/RelWithDebInfo/EpanetCore/${PROJECT_NAME}>"
+    ARCHIVE_OUTPUT_DIRECTORY_DEBUG "$<1:${REVELATION_OUTPUT_DIR}/Debug/EpanetCore/${PROJECT_NAME}>"
+    ARCHIVE_OUTPUT_DIRECTORY_RELEASE "$<1:${REVELATION_OUTPUT_DIR}/Release/EpanetCore/${PROJECT_NAME}>"
+    ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "$<1:${REVELATION_OUTPUT_DIR}/RelWithDebInfo/EpanetCore/${PROJECT_NAME}>"
+)
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od")
+endif()
+
+# add_executable(run-epanet3 src/CLI/main.cpp)
+# target_link_libraries(run-epanet3 LINK_PUBLIC epanet3)
