@@ -209,6 +209,28 @@ void LinkParser::parseReaction(Link* link, int type, vector<string>& tokenList)
 
 //-----------------------------------------------------------------------------
 
+void LinkParser::parseVertices(Link* link, vector<string>& tokenList)
+{
+    if (tokenList.size() < 3) throw InputError(InputError::TOO_FEW_ITEMS, "");
+
+    double xCoord;
+    double yCoord;
+
+    if (!Utilities::parseNumber(tokenList[1], xCoord))
+    {
+        throw InputError(InputError::INVALID_NUMBER, tokenList[1]);
+    }
+
+    if (!Utilities::parseNumber(tokenList[2], yCoord))
+    {
+        throw InputError(InputError::INVALID_NUMBER, tokenList[2]);
+    }
+
+    link->vertices.emplace_back(xCoord, yCoord);
+}
+
+//-----------------------------------------------------------------------------
+
 void parseEndNodes(Link* link, Network* nw, vector<string>& tokenList)
 {
     // Contents of tokenList are:

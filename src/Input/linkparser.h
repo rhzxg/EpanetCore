@@ -32,6 +32,7 @@ class LinkParser
     void parseLeakage(Link* link, std::vector<std::string>& tokens);
     void parseEnergy(Link* link, Network* network, std::vector<std::string>& tokens);
     void parseReaction(Link* link, int type, std::vector<std::string>& tokens);
+    void parseVertices(Link* link, std::vector<std::string>& tokens);
 };
 
 #endif

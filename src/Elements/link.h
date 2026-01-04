@@ -15,6 +15,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <utility>
 
 class Node;
 class Network;
@@ -92,6 +94,8 @@ class Link: public Element
     // Used for water quality routing
     virtual double getVolume() { return 0.0; }
 
+    using Vertices =  std::vector<std::pair<double, double>>;
+
     // Properties
     bool           rptFlag;          //!< true if results are reported
     Node*          fromNode;         //!< pointer to the link's start node
@@ -100,6 +104,7 @@ class Link: public Element
     double         diameter;         //!< link diameter (ft)
     double         lossCoeff;        //!< minor head loss coefficient
     double         initSetting;      //!< initial pump speed or valve setting
+    Vertices       vertices;         //!< list of intermediate vertices
 
     // Computed Variables
     int            status;           //!< current status
