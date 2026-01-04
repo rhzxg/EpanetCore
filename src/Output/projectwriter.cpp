@@ -70,6 +70,7 @@ int ProjectWriter::writeFile(const char* fname, Network* nw)
     writeReport();
     writeTags();
     writeCoords();
+    writeVertices();
     writeAuxData();
     fout.close();
     return 0;
@@ -601,6 +602,21 @@ void ProjectWriter::writeTags()
 
 void ProjectWriter::writeCoords()
 {
+}
+
+void ProjectWriter::writeVertices()
+{
+    fout << "\n[VERTICES]\n";
+    fout << ";link\tX-coord\tY-coord\n";
+    fout << fixed << setprecision(7);
+
+    for (Link* link : network->links)
+    {
+        for (const auto& vertex : link->vertices)
+        {
+            fout << link->name << "\t" << vertex.first << "\t" << vertex.second << "\n";
+        }
+    }
 }
 
 void ProjectWriter::writeAuxData()

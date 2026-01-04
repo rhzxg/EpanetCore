@@ -15,6 +15,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <utility>
 
 class Node;
 class Network;
@@ -109,6 +111,7 @@ class Link: public Element
     double         hGrad;            //!< head loss gradient (ft/cfs)
     double         setting;          //!< current setting
     double         quality;          //!< avg. quality concen. (mass/ft3)
+    std::vector<std::pair<double, double>> vertices;  //!< list of intermediate vertices
 };
 
 #endif

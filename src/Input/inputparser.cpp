@@ -33,7 +33,7 @@ static const char* w_Tank = "TANK";
 //-----------------------------------------------------------------------------
 
 // Link properties enumeration
-enum LinkParam {STATUS, LEAKAGE, ENERGY, BULK, WALL};
+enum LinkParam {STATUS, LEAKAGE, ENERGY, BULK, WALL, VERTICES};
 
 //-----------------------------------------------------------------------------
 
@@ -292,12 +292,13 @@ void PropertyParser::parseLine(string& line, int section)
         case InputReader::QUALITY:
         case InputReader::SOURCE:
         case InputReader::MIXING:
-	        parseNodeProperty(section, id);
-	        break;
+                parseNodeProperty(section, id);
+                break;
 
         // Link properties
         case InputReader::STATUS:  parseLinkProperty(STATUS, id);  break;
         case InputReader::LEAKAGE: parseLinkProperty(LEAKAGE, id); break;
+        case InputReader::VERTICES: parseLinkProperty(VERTICES, id); break;
 
         // Energy usage parameters
         case InputReader::ENERGY:
@@ -381,6 +382,7 @@ void PropertyParser::parseLinkProperty(int type, string& linkName)
         case ENERGY:  linkParser.parseEnergy(link, network, tokens);      break;
         case BULK:    linkParser.parseReaction(link, Link::BULK, tokens); break;
         case WALL:    linkParser.parseReaction(link, Link::WALL, tokens); break;
+        case VERTICES: linkParser.parseVertices(link, tokens);            break;
     }
 }
 
