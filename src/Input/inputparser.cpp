@@ -296,9 +296,9 @@ void PropertyParser::parseLine(string& line, int section)
                 break;
 
         // Link properties
-        case InputReader::STATUS:  parseLinkProperty(STATUS, id);  break;
-        case InputReader::LEAKAGE: parseLinkProperty(LEAKAGE, id); break;
-        case InputReader::VERTICES: parseLinkProperty(VERTICES, id); break;
+        case InputReader::STATUS:   parseLinkProperty(STATUS, id);      break;
+        case InputReader::LEAKAGE:  parseLinkProperty(LEAKAGE, id);     break;
+        case InputReader::VERTICES: parseLinkProperty(VERTICES, id);    break;
 
         // Energy usage parameters
         case InputReader::ENERGY:
@@ -377,12 +377,12 @@ void PropertyParser::parseLinkProperty(int type, string& linkName)
     if ( link == nullptr ) throw InputError(InputError::UNDEFINED_OBJECT, linkName);
     switch (type)
     {
-        case STATUS:  linkParser.parseStatus(link, tokens);               break;
-        case LEAKAGE: linkParser.parseLeakage(link, tokens);              break;
-        case ENERGY:  linkParser.parseEnergy(link, network, tokens);      break;
-        case BULK:    linkParser.parseReaction(link, Link::BULK, tokens); break;
-        case WALL:    linkParser.parseReaction(link, Link::WALL, tokens); break;
-        case VERTICES: linkParser.parseVertices(link, tokens);            break;
+        case STATUS:    linkParser.parseStatus(link, tokens);               break;
+        case LEAKAGE:   linkParser.parseLeakage(link, tokens);              break;
+        case ENERGY:    linkParser.parseEnergy(link, network, tokens);      break;
+        case BULK:      linkParser.parseReaction(link, Link::BULK, tokens); break;
+        case WALL:      linkParser.parseReaction(link, Link::WALL, tokens); break;
+        case VERTICES:  linkParser.parseVertices(link, tokens);             break;
     }
 }
 
