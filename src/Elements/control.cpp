@@ -68,6 +68,27 @@ void Control::setProperties(int    controlType,
 
 //-----------------------------------------------------------------------------
 
+void Control::getProperties(int&    controlType,
+                            string& controlLinkId,
+                            int&    linkStatus,
+                            double& linkSetting,
+                            string& controlNodeId,
+                            double& nodeSetting,
+                            int&    controlLevelType,
+                            int&    timeSetting)
+{
+    controlType = type;
+    controlLinkId = link ? link->name : "";
+    linkStatus = status;
+    linkSetting = setting;
+    controlNodeId = node ? node->name : "";
+    nodeSetting = head;
+    controlLevelType = levelType;
+    timeSetting = time;
+}
+
+//-----------------------------------------------------------------------------
+
 void Control::convertUnits(Network* network)
 {
     if ( type == TANK_LEVEL )
