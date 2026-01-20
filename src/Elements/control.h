@@ -53,14 +53,14 @@ class Control: public Element
 
     // Gets the properties of a control
     void    getProperties(
-                int&    controlType,
-                std::string& controlLinkId,
-                int&    linkStatus,
-                double& linkSetting,
-                std::string& controlNodeId,
-                double& nodeSetting,
-                int&    controlLevelType,
-                int&    timeSetting);
+                int&            controlType,
+                std::string&    controlLinkId,
+                int&            linkStatus,
+                double&         linkSetting,
+                std::string&    controlNodeId,
+                double&         nodeSetting,
+                int&            controlLevelType,
+                int&            timeSetting);
 
     // Produces a string representation of the control
     std::string toStr(Network* network);
