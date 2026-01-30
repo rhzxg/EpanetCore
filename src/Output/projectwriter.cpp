@@ -602,13 +602,20 @@ void ProjectWriter::writeTags()
 
 void ProjectWriter::writeCoords()
 {
+    fout << "\n[COORD]\n";
+    fout << fixed << setprecision(3);
+
+    for (Node* node : network->nodes)
+    {
+        fout << node->name << "\t" << node->xCoord << "\t" << node->yCoord << "\n";
+    }
 }
 
 void ProjectWriter::writeVertices()
 {
     fout << "\n[VERTICES]\n";
-    fout << ";link\tX-coord\tY-coord\n";
-    fout << fixed << setprecision(7);
+    // fout << ";link\tX-coord\tY-coord\n";
+    fout << fixed << setprecision(3);
 
     for (Link* link : network->links)
     {
