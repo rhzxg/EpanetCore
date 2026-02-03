@@ -124,12 +124,18 @@ class Utilities
         if (*p == '\0')
             return true;
 
+        // special case: nan
+        if (s == "nan")
+        {
+            x = std::numeric_limits<double>::quiet_NaN();
+            return true;
+        }
+        
         // for some numbers in scientific notation 
         std::stringstream ss(s);
         ss >> x;
         return !ss.fail();
     }
-
 };
 
 #endif

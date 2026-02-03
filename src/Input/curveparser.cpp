@@ -28,7 +28,7 @@ void CurveParser::parseCurveData(Curve* curve, vector<string>& tokenList)
 
     // ... check if second token is curve type keyword
 
-    int curveType = Utilities::findMatch(tokens[1], Curve::CurveTypeWords);
+    int curveType = Utilities::findMatch(tokenList[1], Curve::CurveTypeWords);
     if (curveType > 0)
     {
         curve->setType(curveType);

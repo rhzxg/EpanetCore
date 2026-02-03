@@ -157,6 +157,9 @@ int Utilities::findFullMatch(const string& s, const char* slist[])
 
 bool Utilities::match(const string& s1, const string& s2)
 {
+    if (s2.empty())
+        return false;
+
     // select 1st element of each string
 
     string::const_iterator p1 = s1.begin(),

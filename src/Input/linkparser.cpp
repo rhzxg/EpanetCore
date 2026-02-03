@@ -47,7 +47,7 @@ void LinkParser::parseLinkData(string& id, Network* nw, vector<string>& tokens)
 
     Link* link = nw->link(id);
     if ( !link ) throw InputError(InputError::UNDEFINED_OBJECT, id);
-    if ( tokens.size() < 4 ) throw InputError(InputError::TOO_FEW_ITEMS, "");
+    if ( tokens.size() < 3 ) throw InputError(InputError::TOO_FEW_ITEMS, "");
     parseEndNodes(link, nw, tokens);
 
     // ... read link-specific data
